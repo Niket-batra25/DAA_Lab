@@ -1,0 +1,32 @@
+#include <iostream>
+#include<vector>
+#include <climits>
+using namespace std;
+int max_crossing_sum(vector<int>&arr,int st,int end,int mid){
+    int sum=0;
+    int left_sum=INT_MIN;
+    for(int i=mid;i>=st;i--){
+        sum=sum +arr[i];
+        if(sum>left_sum) left_sum=sum ;
+    }
+    sum=0;
+    int right_sum=INT_MIN;
+    for(int i=mid+1;i<=end;i++){
+        sum=sum +arr[i];
+        if(sum>right_sum) right_sum=sum ;
+    }
+    return left_sum+right_sum;
+}
+int max_subarray_sum (vector<int>arr,int st,int end){
+    if(st==end) return arr[st];
+    int mid=st+(end-st)/2;
+    int left_sum=max_subarray_sum(arr,st,mid);
+    int right_sum=max_subarray_sum(arr,mid+1,end);
+    int cross_sum=max_crossing_sum(arr,st,end,mid);
+    return max(cross_sum,max(left_sum,right_sum));
+}
+int main() {
+    vector<int>arr={-2,4,2,-1};
+    cout<<max_subarray_sum(arr,0,3);
+    return 0;
+}
