@@ -1,0 +1,25 @@
+#include <iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int main() {
+    vector<int>at={900,910,920,1100,1120};
+    vector<int>dt={940,1200,950,1130,1140};
+    int cnt=1,maxcnt=1;
+    int i=1,j=0;
+    sort(at.begin(),at.end());
+    sort(dt.begin(),dt.end());
+    int n=at.size();
+    while(i<n){
+        if(at[i]<=dt[j]){
+            cnt++;
+            i++;
+        }else{
+            cnt--;
+            j++;
+        }
+        maxcnt=max(maxcnt,cnt);
+    }
+    cout<<"max number of platforms used= "<<maxcnt;
+    return 0;
+}
